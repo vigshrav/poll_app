@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "162599232490",
+    "project_id": "polling-app-c4772",
+    "storage_bucket": "polling-app-c4772.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162599232490:android:b39ffb39d9dda12a7c8893",
+        "android_client_info": {
+          "package_name": "com.vigshrav.polling_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162599232490-9mpdvbmi5blcue0h16ph9hbibfttv18o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3U0Mi37ULiIq2KYIPBm8DU34Mf9koUU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162599232490-9mpdvbmi5blcue0h16ph9hbibfttv18o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
