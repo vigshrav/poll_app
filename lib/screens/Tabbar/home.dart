@@ -38,25 +38,25 @@ class _HomeState extends State<Home> {
           return loading ? Loading() : Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
-              // flexibleSpace: Container(
-              //   decoration: BoxDecoration(
-              //     gradient: LinearGradient(
-              //       begin: Alignment.topLeft,
-              //         end: Alignment.bottomRight,
-              //         colors: <Color>[HexColor('#2D7A98'), HexColor('#81AFC1')],
-              //     ),
-              //   ),
-              // ),
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: <Color>[HexColor('#2D7A98'), HexColor('#81AFC1')],
+                  ),
+                ),
+              ),
               automaticallyImplyLeading: false,
               title: 
-              Container(width: 50, height: 50, child: Image.asset('assets/icon-48.png', fit: BoxFit.cover,)),
+              //Container(width: 50, height: 50, child: Image.asset('assets/icon-48.png', fit: BoxFit.cover,)),
               //Text('Wootin', style: GoogleFonts.openSans(fontSize: 30.0) ,),
-              // Stack(
-              //   children: [
-              //     Image.asset('assets/app_top_bar.png'),
-              //     Center(child: Text('Wootin', style: GoogleFonts.openSans(fontSize: 30.0) ,)),
-              //     ],
-              // ),
+              Stack(
+                children: [
+                  Image.asset('assets/app_top_bar.png'),
+                  Center(child: Text('', style: GoogleFonts.openSans(fontSize: 30.0) ,)),
+                  ],
+              ),
                 
               centerTitle: true,
               actions: [
