@@ -46,9 +46,9 @@ class _OTPState extends State<OTP> {
                 children: [
                   TextFormField(
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.vpn_key, color: Colors.orange,),
+                      prefixIcon: Icon(Icons.vpn_key, color: HexColor('#2D7A98'),),
                       labelText: 'Enter OTP',
-                      labelStyle: GoogleFonts.openSans(color: Colors.green),
+                      labelStyle: GoogleFonts.openSans(color: HexColor('#2D7A98')),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(25.0),),
                         borderSide: BorderSide(color: Colors.grey)
@@ -89,7 +89,7 @@ class _OTPState extends State<OTP> {
                   Text('$error', style: TextStyle(color: Colors.red)),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.orange),),
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(HexColor('#2D7A98')),),
                     child: Text('Confirm'),
                     onPressed: () async {
                       setState(() {
@@ -104,20 +104,7 @@ class _OTPState extends State<OTP> {
                       }
                     }
                   ),
-                  TextButton(
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('New User?', style: TextStyle(color: Colors.black54),),
-                        SizedBox(width: 5.0,),
-                        Text('Register', style: TextStyle(color: Colors.orange),),
-                      ],
-                    ),
-                    onPressed: () async {
-                      await Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SignUp())
-                      );
-                    }
-                  ),
+                  
                 ],
               ),
             ),

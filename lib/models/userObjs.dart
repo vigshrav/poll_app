@@ -12,8 +12,9 @@ class UserObjs {
   int polls;
   int followers;
   int following;
+  List blockedUsers;
  
 
-  UserObjs({ required this.id, required this.uName, required this.eMail, required this.phone, required this.avatarURL, required this.polls, required this.followers, required this.following });
+  UserObjs({ required this.id, required this.uName, required this.eMail, required this.phone, required this.avatarURL, required this.polls, required this.followers, required this.following, required this.blockedUsers });
 }
 

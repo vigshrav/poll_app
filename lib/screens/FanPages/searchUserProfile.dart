@@ -18,17 +18,19 @@ class SearchProfilePage extends StatefulWidget {
 
 class _SearchProfilePageState extends State<SearchProfilePage> {
 
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
 
     //int tabindex = 4;
-    bool loading = false;
+    
     //bool isFollowing = false;
 
-    print('YOU: ${widget.data.resUseruid}');
-    print('SEARCH: ${widget.data.currUseruid}');
+    //print('YOU: ${widget.data.resUseruid}');
+    //print('SEARCH: ${widget.data.currUseruid}');
 
-    return StreamBuilder<UserObjs>(
+    return loading ? Loading() : StreamBuilder<UserObjs>(
       stream: UserServices(uid: widget.data.currUseruid).userRootData,
       builder: (context,snapshot){
         UserObjs? curruserObjs = snapshot.data;
@@ -37,7 +39,7 @@ class _SearchProfilePageState extends State<SearchProfilePage> {
           var currUseravatarImgURL = curruserObjs.avatarURL;
           //bool avatarImgavailable;
 
-          print('YOU: $currUsername');
+          //print('YOU: $currUsername');
 
           return StreamBuilder<UserObjs>(
             stream: UserServices(uid: widget.data.resUseruid).userRootData,
@@ -48,7 +50,7 @@ class _SearchProfilePageState extends State<SearchProfilePage> {
                 var searchUseravatarImgURL = searchuserObjs.avatarURL;
                 bool avatarImgavailable;
 
-                print('SEARCH: $searchUser');
+                //print('SEARCH: $searchUser');
 
                 if (searchUseravatarImgURL != '') {avatarImgavailable = true;} else {avatarImgavailable = false;}
 
@@ -104,7 +106,7 @@ class _SearchProfilePageState extends State<SearchProfilePage> {
                                         : CircleAvatar(
                                           backgroundColor: Colors.grey,
                                           radius: 50.0,
-                                          child: Icon(Icons.account_circle, size: 100.0,),
+                                          child: Icon(Icons.account_circle, color: Colors.black54, size: 100.0,),
                                         )
                                       
                                     // child: CircleAvatar(
@@ -248,7 +250,7 @@ class _SearchProfilePageState extends State<SearchProfilePage> {
                                     ))),
                                 child: Text('Follow', style: GoogleFonts.openSans(fontSize: 22)), 
                                 onPressed: () async {
-                                  setState(() { loading = true; });
+                                  //setState(() { loading = true; });
                                   await FirebaseFirestore.instance.collection('users').doc(widget.data.currUseruid).collection('following').doc(widget.data.resUseruid).set({
                                     'avatarURL': searchUseravatarImgURL,
                                     'uname': searchUser,
@@ -269,6 +271,7 @@ class _SearchProfilePageState extends State<SearchProfilePage> {
                                   await FirebaseFirestore.instance.collection('users').doc(widget.data.resUseruid).update({
                                     'followers': FieldValue.increment(1)
                                   });
+                                  //setState(() { loading = false; });
                                   Navigator.pop(context);
                                 }
                               )
@@ -290,13 +293,16 @@ class _SearchProfilePageState extends State<SearchProfilePage> {
                                     ))),
                                 child: Text('Un-Follow', style: GoogleFonts.openSans(fontSize: 22)), 
                                 onPressed: () async {
-                                  setState(() { loading = true; });
+                                  //setState(() { loading = true; });
                                   await FirebaseFirestore.instance.collection('users').doc(widget.data.currUseruid).collection('following').doc(widget.data.resUseruid).delete();
                                   await FirebaseFirestore.instance.collection('users').doc(widget.data.resUseruid).collection('follower').doc(widget.data.currUseruid).delete();
-                                  // await FirebaseFirestore.instance.collection('users').doc(widget.data.resUseruid).collection('notifications').add({
-                                  //   'message': 'User $currUsername has un-followed you.',
-                                  //   'createdOn': DateTime.now(),
-                                  // });
+                                  await FirebaseFirestore.instance.collection('users').doc(widget.data.currUseruid).update({
+                                    'following': FieldValue.increment(-1)
+                                  });
+                                  await FirebaseFirestore.instance.collection('users').doc(widget.data.resUseruid).update({
+                                    'followers': FieldValue.increment(-1)
+                                  });
+                                  //setState(() { loading = false; });
                                   Navigator.pop(context);
                                 }
                               )),

@@ -70,7 +70,8 @@ class AuthService {
               'polls': 0,
               'followers': 0,
               'following': 0,
-              'avatarURL': ''
+              'avatarURL': '',
+              'blockedUsers' : [],
             }),
           }
       });

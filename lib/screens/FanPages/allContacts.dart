@@ -3,27 +3,27 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:polling_app/models/userObjs.dart';
 import 'package:polling_app/screens/FanPages/searchUserProfile.dart';
 import 'package:polling_app/screens/Tabbar/fanspage.dart';
-import 'package:polling_app/services/fire_users.dart';
-import 'package:polling_app/widgets/spinner.dart';
 
-class Followers extends StatefulWidget {
-  const Followers({ Key? key }) : super(key: key);
+class ContactsList extends StatefulWidget {
+  const ContactsList({ Key? key }) : super(key: key);
 
   @override
-  _FollowersState createState() => _FollowersState();
+  _ContactsListState createState() => _ContactsListState();
 }
 
-class _FollowersState extends State<Followers> {
+class _ContactsListState extends State<ContactsList> {
 
   User? user = FirebaseAuth.instance.currentUser;
+  var searchController = TextEditingController();
 
   bool isFollowing = false;
 
   List searchRes = [];
-  
+
+  var searchKey = '';
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -33,30 +33,53 @@ class _FollowersState extends State<Followers> {
 
     bool avatarImgavailable = true;
 
-    return SingleChildScrollView (
-      child: Container(
-      height: safeBlockVertical * 1,
-      color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            Container(height: safeBlockVertical * 0.9,
-            
+    searchQuery(){      
+      if (searchKey == '') {
+        return FirebaseFirestore.instance.collection('users').snapshots();
+        } else {
+          return FirebaseFirestore.instance.collection('users').orderBy('usrname').startAt([searchKey]).endAt([searchKey + '\uf8ff']).snapshots();
+          }
+    }
+  
+    return Container(height: safeBlockVertical * 0.9,
+      child: Column(
+        children: [
+          Container(padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
+            child: TextField(controller: searchController,
+              decoration: InputDecoration(
+                hintText: 'Search new users',
+                hintStyle: GoogleFonts.openSans(fontSize: 22.0),
+                suffixIcon: Icon(Icons.search),
+              ),
+              onChanged: (val) => {
+                if (val.length >= 3) {
+                  setState(() {
+                    searchKey = val;
+                  })
+                } else {
+                  setState(() {
+                    searchKey = '';
+                  }),
+                },
+                //print (searchKey)
+              },
+            ),
+          ),
+          SizedBox(height: 15.0),
+          SingleChildScrollView (
+            child: Container(height: safeBlockVertical * 0.79,
             child: StreamBuilder(
-                stream: FirebaseFirestore.instance.collection('users').doc(user!.uid).collection('follower').snapshots(),
+                stream: searchQuery(),
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   //var projList = snapshot.data.documents;
                   if (!snapshot.hasData) return new Text('Loading...');
-                  if (snapshot.data!.docs.length == 0) return Center(child: new Text('No followers yet', style: GoogleFonts.openSans(fontSize: 20, color: HexColor('#2D7A98')),));
                   return ListView(
                     children: snapshot.data!.docs.map(
                       (DocumentSnapshot document) {
                         if ((document.data() as dynamic)['avatarURL'] == '') {avatarImgavailable = false;} else {avatarImgavailable = true;}
                       return Container(
                         //height: 49,
-                        decoration: BoxDecoration( 
-                                    border: Border(bottom: BorderSide(color: Colors.grey),),
-                                    
-                                  ),
+                        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey),),),
                         //child: Card( 
                           child: ListTile(
                             title: Row(
@@ -64,11 +87,12 @@ class _FollowersState extends State<Followers> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                avatarImgavailable? CircleAvatar(backgroundColor: Colors.grey,radius: 20.0, backgroundImage: NetworkImage((document.data() as dynamic)['avatarURL']),): CircleAvatar(backgroundColor: Colors.grey,radius: 20.0,child: Icon(Icons.account_circle, size: 40.0, color: Colors.black54),),
-                                SizedBox(width: 50,),
-                                Text(('@ ${(document.data() as dynamic)['uname']}'), overflow: TextOverflow.ellipsis, style: GoogleFonts.openSans(fontSize: 16, color: HexColor('#2D7A98')),),
+                                avatarImgavailable ? CircleAvatar(backgroundColor: Colors.grey,radius: 20.0, backgroundImage: NetworkImage((document.data() as dynamic)['avatarURL']),) : CircleAvatar(backgroundColor: Colors.grey,radius: 20.0,child: Icon(Icons.account_circle, size: 40.0, color: Colors.black54),),
+                                SizedBox(width: 20,),
+                                Text(('@ ${(document.data() as dynamic)['usrname']}'), overflow: TextOverflow.ellipsis, style: GoogleFonts.openSans(fontSize: 16, color: HexColor('#2D7A98')),),
                               ]),
                               onTap: () async {
+
                                 if (document.id != user!.uid) {
 
                                   await FirebaseFirestore.instance.collection('users').doc(user!.uid).collection('following').get().then((querySnapshot) => {
@@ -77,7 +101,7 @@ class _FollowersState extends State<Followers> {
                                       querySnapshot.docs.forEach((doc) => {
                                         if (document.id == doc.id) {
                                           isFollowing = true
-                                        }
+                                        } else {isFollowing = false}
                                       })
                                     }
                                   });
@@ -86,27 +110,27 @@ class _FollowersState extends State<Followers> {
 
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => SearchProfilePage(data)));
-                                  
+                                  //searchController.clear();
                                 } else {
 
                                   displaySnackBar('You can access your profile from the profile tab.');
+                                  //searchController.clear();
 
                               //},
-                            }
-                            }
-                          )
+                            }})
                       );
                       }
                     ).toList()
                   );
                 }
             )
-            )
-          ])
-      )                   
+            )                   
+          ),
+        ],
+      ),
     );
   }
-  displaySnackBar(errtext) {
+   displaySnackBar(errtext) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(errtext),
         duration: const Duration(seconds: 3),

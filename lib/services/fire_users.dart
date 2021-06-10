@@ -28,6 +28,7 @@ class UserServices {
           polls: (snapshot.data() as dynamic)['polls'],
           followers: (snapshot.data() as dynamic)['followers'],
           following: (snapshot.data() as dynamic)['following'],
+          blockedUsers: (snapshot.data() as dynamic)['blockedUsers'],
          
         );
 

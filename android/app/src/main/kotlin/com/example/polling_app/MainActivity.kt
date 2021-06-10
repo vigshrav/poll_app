@@ -1,4 +1,4 @@
-package com.vigshrav.polling_app
+package com.vigshrav.wootin
 
 import io.flutter.embedding.android.FlutterActivity
 

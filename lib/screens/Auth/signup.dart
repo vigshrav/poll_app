@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:polling_app/screens/Auth/otp.dart';
 import 'package:polling_app/screens/Auth/signin.dart';
-import 'package:polling_app/screens/Auth/signup.dart';
 import 'package:polling_app/services/fire_auth.dart';
 import 'package:polling_app/widgets/spinner.dart';
 
@@ -40,25 +39,38 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: HexColor('#2D7A98'),
-        title: Text('Register', style: GoogleFonts.openSans(fontSize: 30.0) ,),
-        centerTitle: true,),
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   backgroundColor: HexColor('#2D7A98'),
+      //   title: Text('Register', style: GoogleFonts.openSans(fontSize: 30.0) ,),
+      //   centerTitle: true,),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 50.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+                height: 100.0,
+                width: 100.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                        'assets/login_signup_screen_logo.png'),
+                    fit: BoxFit.fill,
+                  ),
+                  shape: BoxShape.rectangle,
+                ),
+              ),
+              SizedBox(height: 50.0,),
             Form(key: _formKey,
               child: Column(
                 children: [
                   TextFormField(
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.alternate_email, color: Colors.orange,),
+                      prefixIcon: Icon(Icons.alternate_email, color: HexColor('#2D7A98'),),
                       labelText: 'username',
-                      labelStyle: GoogleFonts.openSans(color: Colors.green),
+                      labelStyle: GoogleFonts.openSans(color: HexColor('#2D7A98'),),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(25.0),),
                         borderSide: BorderSide(color: Colors.grey)
@@ -78,9 +90,9 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: 20),
                   TextFormField(
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.mail, color: Colors.orange,),
+                      prefixIcon: Icon(Icons.mail, color: HexColor('#2D7A98'),),
                       labelText: 'email',
-                      labelStyle: GoogleFonts.openSans(color: Colors.green),
+                      labelStyle: GoogleFonts.openSans(color: HexColor('#2D7A98'),),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(25.0),),
                         borderSide: BorderSide(color: Colors.grey)
@@ -100,9 +112,9 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: 20,),
                   TextFormField(
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.phone, color: Colors.orange,),
+                      prefixIcon: Icon(Icons.phone, color: HexColor('#2D7A98'),),
                       labelText: 'Phone Number',
-                      labelStyle: GoogleFonts.openSans(color: Colors.green),
+                      labelStyle: GoogleFonts.openSans(color: HexColor('#2D7A98'),),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(25.0),),
                         borderSide: BorderSide(color: Colors.grey)
@@ -121,7 +133,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.orange),),
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(HexColor('#2D7A98'),),),
                     child: Text('Register'),
                     onPressed: () async {
                       if(_formKey.currentState!.validate()){   
@@ -149,7 +161,7 @@ class _SignUpState extends State<SignUp> {
                     }
                   ),
                   TextButton(
-                    child: Text('Sign In', style: TextStyle(color: Colors.orange),),
+                    child: Text('Sign In', style: TextStyle(color: HexColor('#2D7A98'),),),
                     onPressed: () async {
                       await Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => SignIn())

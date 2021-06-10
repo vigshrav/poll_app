@@ -33,24 +33,38 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: HexColor('#2D7A98'),
-        automaticallyImplyLeading: false,
-        title: Text('Sign In', style: GoogleFonts.openSans(fontSize: 30.0) ,),centerTitle: true,),
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   backgroundColor: HexColor('#2D7A98'),
+      //   automaticallyImplyLeading: false,
+      //   title: Text('Sign In', style: GoogleFonts.openSans(fontSize: 30.0) ,),centerTitle: true,),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 50.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+                height: 100.0,
+                width: 100.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                        'assets/login_signup_screen_logo.png'),
+                    fit: BoxFit.fill,
+                  ),
+                  shape: BoxShape.rectangle,
+                ),
+              ),
+              SizedBox(height: 50.0,),
             Form(key: _formKey,
               child: Column(
                 children: [
                   TextFormField(
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.phone, color: Colors.orange,),
+                      prefixIcon: Icon(Icons.phone, color: HexColor('#2D7A98'),),
                       labelText: 'Phone Number',
-                      labelStyle: GoogleFonts.openSans(color: Colors.green),
+                      labelStyle: GoogleFonts.openSans(color: HexColor('#2D7A98'),),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(25.0),),
                         borderSide: BorderSide(color: Colors.grey)
@@ -91,7 +105,7 @@ class _SignInState extends State<SignIn> {
                   // ),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.orange),),
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(HexColor('#2D7A98'),),),
                     child: Text('Sign In'),
                     onPressed: () async {
                       if(_formKey.currentState!.validate()){
@@ -109,7 +123,7 @@ class _SignInState extends State<SignIn> {
                       children: [
                         Text('New User?', style: TextStyle(color: Colors.black54),),
                         SizedBox(width: 5.0,),
-                        Text('Register', style: TextStyle(color: Colors.orange),),
+                        Text('Register', style: TextStyle(color: HexColor('#2D7A98'),),),
                       ],
                     ),
                     onPressed: () async {

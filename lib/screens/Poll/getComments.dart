@@ -21,7 +21,7 @@ class _GetCommentsState extends State<GetComments> {
         return Container(
           height: (MediaQuery.of(context).size.height - (MediaQuery.of(context).padding.top + MediaQuery.of(context).padding.bottom))*0.75,
           child: ListView(
-            reverse: true,
+            reverse: false,
             children: snapshot.data!.docs.map(
               (DocumentSnapshot document) {
                 return Container(
