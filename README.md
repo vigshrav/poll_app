@@ -9,15 +9,7 @@ Features:
 - In App notifications
 - vote, like, unlike, comment on Polls
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+https://user-images.githubusercontent.com/72376447/128133239-224fec95-9af2-4586-a537-ebe87246b85b.mp4
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Untitled design](https://user-images.githubusercontent.com/72376447/128133291-72f04a10-d427-469d-bc7d-b4d26510e3ec.png)
