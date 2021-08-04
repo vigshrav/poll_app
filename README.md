@@ -7,7 +7,8 @@ Features:
 - Add new Polls
 - Follow/ unfollow users
 - In App notifications
-- vote, like, unlike, comment on Polls
+- Vote, like, unlike, comment on Polls
+- Share polls
 
 
 https://user-images.githubusercontent.com/72376447/128133239-224fec95-9af2-4586-a537-ebe87246b85b.mp4
